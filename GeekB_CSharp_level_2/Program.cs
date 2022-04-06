@@ -10,6 +10,7 @@ namespace GeekB_CSharp_level_2
     {
         static void Main(string[] args)
         {
+            //Ебаный ты рот Асхаб возьми себя в руки
             Console.WriteLine("Let's start!");
             Console.ReadKey();
         }
