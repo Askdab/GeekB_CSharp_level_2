@@ -13,17 +13,24 @@ namespace Lesson1HW_Asteroids
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
         public static BaseObject[] _objs;
+        public static BaseObject[] _galaxy;
 
         public static void Load()
         {
             _objs = new BaseObject[40];
             for (int i = 0; i < _objs.Length / 2; i++)
             {
-                _objs[i] = new BaseObject(new Point(500, i * 20), new Point(-i, -i), new Size(10, 10));
+                _objs[i] = new BaseObject(new Point(500, i * 20), new Point(-i-1, -i), new Size(10, 10));
             }
             for (int i = _objs.Length / 2; i < _objs.Length; i++)
             { 
                 _objs[i] = new Star(new Point(600, i * 10), new Point(-i, 0), new Size(5, 5));
+            }
+
+            _galaxy = new BaseObject[10];
+            for (int i = 0; i < _galaxy.Length; i++)
+            {
+                _galaxy[i] = new Galaxy(new Point(400, (i + 2) * 40), new Point(-i - 35, -i), new Size(1, 1));
             }
         }
 
@@ -73,12 +80,13 @@ namespace Lesson1HW_Asteroids
         {
             // Проверяем вывод графики
             Buffer.Graphics.Clear(Color.Black);
-            Buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
-            Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(100, 100, 200, 200));
-            Buffer.Render();
+            //Buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
+            //Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(100, 100, 200, 200));
+            //Buffer.Render();
 
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs) { obj.Draw(); }
+            foreach (BaseObject obj_1 in _galaxy) { obj_1.Draw(); }
 
             Buffer.Render();
         }
@@ -87,6 +95,7 @@ namespace Lesson1HW_Asteroids
         public static void Update()
         {
             foreach (BaseObject obj in _objs) { obj.Update(); }
+            foreach (BaseObject obj_1 in _galaxy) { obj_1.Update(); }
         }
     }
 }
