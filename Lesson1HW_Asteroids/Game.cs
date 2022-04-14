@@ -17,20 +17,20 @@ namespace Lesson1HW_Asteroids
 
         public static void Load()
         {
-            _objs = new BaseObject[40];
+            _objs = new BaseObject[30];
             for (int i = 0; i < _objs.Length / 2; i++)
             {
-                _objs[i] = new BaseObject(new Point(500, i * 20), new Point(-i-1, -i), new Size(10, 10));
+                _objs[i] = new BaseObject(new Point(400, (i + 1) * 20), new Point(-i-10, -i), new Size(10, 10));
             }
             for (int i = _objs.Length / 2; i < _objs.Length; i++)
             { 
                 _objs[i] = new Star(new Point(600, i * 10), new Point(-i, 0), new Size(5, 5));
             }
 
-            _galaxy = new BaseObject[10];
+            _galaxy = new BaseObject[5];
             for (int i = 0; i < _galaxy.Length; i++)
             {
-                _galaxy[i] = new Galaxy(new Point(400, (i + 2) * 40), new Point(-i - 35, -i), new Size(1, 1));
+                _galaxy[i] = new Galaxy(new Point(400, (i + 2) * 80), new Point(-i - 35, -i), new Size(1, 1));
             }
         }
 

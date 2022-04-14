@@ -9,18 +9,19 @@ namespace Lesson1HW_Asteroids
 {
     class Galaxy : BaseObject
     {
-        //Bitmap asteroid = new Bitmap(@"asteroid.png");
-        Image asteroid = Image.FromFile(@"C:\Users\RMC\source\repos\GeekB_CSharp_level_2\GeekB_CSharp_level_2\Lesson1HW_Asteroids\aster.png");
+        //Добавляем картинку астероида
+        //Image asteroid = Image.FromFile("aster.png");
         
 
         public Galaxy(Point pos, Point dir, Size size) : base(pos, dir, size) { }
 
         public override void Draw()
         {
-            Rectangle asteroidSize = new Rectangle(Pos.X, Pos.Y, 30, 30);
-            //Game.Buffer.Graphics.DrawEllipse(Pens.Yellow, Pos.X, Pos.Y, Size.Width + 20, Size.Height + 10);
-            //Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X + 10, Pos.Y + 5, Size.Width, Size.Height);
-            Game.Buffer.Graphics.DrawImage(asteroid, asteroidSize);
+            Game.Buffer.Graphics.DrawEllipse(Pens.Yellow, Pos.X, Pos.Y, Size.Width + 20, Size.Height + 10);
+            Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X + 10, Pos.Y + 5, Size.Width, Size.Height);
+            //Выводим астероид в игру
+            //Rectangle asteroidSize = new Rectangle(Pos.X, Pos.Y, 30, 30);
+            //Game.Buffer.Graphics.DrawImage(asteroid, asteroidSize);
         }
 
         public override void Update()
