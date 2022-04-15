@@ -7,16 +7,17 @@ using System.Drawing;
 
 namespace Lesson1HW_Asteroids
 {
-    class Star : BaseObject
+    class Asteroid : BaseObject
     {
-        public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
+        public int Power { get; set; }
+        public Asteroid(Point pos, Point dir, Size size) : base(pos,dir,size)
         {
+            Power = 1;
         }
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawLine(Pens.White, Pos.X, Pos.Y, Pos.X + Size.Width, Pos.Y + Size.Height);
-            Game.Buffer.Graphics.DrawLine(Pens.White, Pos.X + Size.Width, Pos.Y, Pos.X, Pos.Y + Size.Height);
+            Game.Buffer.Graphics.FillEllipse(Brushes.White, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
 
         public override void Update()

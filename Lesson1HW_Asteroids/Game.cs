@@ -13,24 +13,35 @@ namespace Lesson1HW_Asteroids
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
         public static BaseObject[] _objs;
-        public static BaseObject[] _galaxy;
+        public static Galaxy[] _galaxy;
+        private static Bullet _bullet;
+        private static Asteroid[] _asteroids;
 
         public static void Load()
         {
             _objs = new BaseObject[30];
-            for (int i = 0; i < _objs.Length / 2; i++)
+            _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
+            _asteroids = new Asteroid[10];
+
+            var rnd = new Random();
+
+            for (var i = 0; i < _objs.Length; i++)
             {
-                _objs[i] = new BaseObject(new Point(400, (i + 1) * 20), new Point(-i-10, -i), new Size(10, 10));
-            }
-            for (int i = _objs.Length / 2; i < _objs.Length; i++)
-            { 
-                _objs[i] = new Star(new Point(600, i * 10), new Point(-i, 0), new Size(5, 5));
+                int r = rnd.Next(5, 50);
+                _objs[i] = new Star(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r, r), new Size(3, 3));
             }
 
-            _galaxy = new BaseObject[5];
+            for (var i = 0; i < _asteroids.Length; i++)
+            {
+                int r = rnd.Next(5, 50);
+                _asteroids[i] = new Asteroid(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r/5, r), new Size(r, r));
+            }
+
+            _galaxy = new Galaxy[8];
             for (int i = 0; i < _galaxy.Length; i++)
             {
-                _galaxy[i] = new Galaxy(new Point(400, (i + 2) * 80), new Point(-i - 35, -i), new Size(1, 1));
+                int r = rnd.Next(5, 50);
+                _galaxy[i] = new Galaxy(new Point(1000, rnd.Next(0, Game.Height)), new Point(-r/3, r/2), new Size(1, 1));
             }
         }
 
@@ -79,14 +90,15 @@ namespace Lesson1HW_Asteroids
         public static void Draw()
         {
             // Проверяем вывод графики
-            Buffer.Graphics.Clear(Color.Black);
+            //Buffer.Graphics.Clear(Color.Black);
             //Buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
             //Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(100, 100, 200, 200));
             //Buffer.Render();
 
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs) { obj.Draw(); }
-            foreach (BaseObject obj_1 in _galaxy) { obj_1.Draw(); }
+            foreach (Galaxy gal in _galaxy) { gal.Draw(); }
+            foreach (Asteroid aster in _asteroids) { aster.Draw(); }
 
             Buffer.Render();
         }
@@ -95,7 +107,8 @@ namespace Lesson1HW_Asteroids
         public static void Update()
         {
             foreach (BaseObject obj in _objs) { obj.Update(); }
-            foreach (BaseObject obj_1 in _galaxy) { obj_1.Update(); }
+            foreach (Galaxy gal in _galaxy) { gal.Update(); }
+            foreach (Asteroid aster in _asteroids) { aster.Update(); }
         }
     }
 }

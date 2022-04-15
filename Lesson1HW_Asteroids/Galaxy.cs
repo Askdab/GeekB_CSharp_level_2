@@ -17,8 +17,8 @@ namespace Lesson1HW_Asteroids
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawEllipse(Pens.Yellow, Pos.X, Pos.Y, Size.Width + 20, Size.Height + 10);
-            Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X + 10, Pos.Y + 5, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawEllipse(Pens.Yellow, Pos.X, Pos.Y, Size.Width + 10, Size.Height + 5);
+            Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X + 5, Pos.Y + 2, Size.Width, Size.Height);
             //Выводим астероид в игру
             //Rectangle asteroidSize = new Rectangle(Pos.X, Pos.Y, 30, 30);
             //Game.Buffer.Graphics.DrawImage(asteroid, asteroidSize);
