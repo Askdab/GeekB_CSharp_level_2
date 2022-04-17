@@ -11,7 +11,6 @@ namespace Lesson1HW_Asteroids
     {
         public Bullet(Point pos, Point dir, Size size) : base (pos, dir, size)
         {
-
         }
 
         public override void Draw()
