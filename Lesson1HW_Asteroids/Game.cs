@@ -99,6 +99,7 @@ namespace Lesson1HW_Asteroids
             foreach (BaseObject obj in _objs) { obj.Draw(); }
             foreach (Galaxy gal in _galaxy) { gal.Draw(); }
             foreach (Asteroid aster in _asteroids) { aster.Draw(); }
+            _bullet.Draw();
 
             Buffer.Render();
         }
@@ -108,7 +109,15 @@ namespace Lesson1HW_Asteroids
         {
             foreach (BaseObject obj in _objs) { obj.Update(); }
             foreach (Galaxy gal in _galaxy) { gal.Update(); }
-            foreach (Asteroid aster in _asteroids) { aster.Update(); }
+            foreach (Asteroid aster in _asteroids) 
+            { 
+                aster.Update();
+                if (aster.Collision(_bullet))
+                {
+                    System.Media.SystemSounds.Hand.Play();
+                }
+            }
+            _bullet.Update();
         }
     }
 }
