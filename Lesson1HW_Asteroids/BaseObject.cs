@@ -22,11 +22,7 @@ namespace Lesson1HW_Asteroids
 
         public abstract void Draw();
 
-        public virtual void Update()
-        {
-            Pos.X = Pos.X + Dir.X;
-            if (Pos.X < 0) Pos.X = Game.Width + Game.Height;
-        }
+        public abstract void Update();
 
         public bool Collision (ICollision o) => o.Rect.IntersectsWith(this.Rect);
 

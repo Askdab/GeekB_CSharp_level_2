@@ -9,12 +9,17 @@ namespace Workers_hw_Lesson2
     class WorkerFixedPayment : Workers
     {
         double MonthPayment;
+        double Payment;
+
         public WorkerFixedPayment(string name, double payment) : base(name, payment)
         {
+            Payment = payment;
         }
 
         public override double AverageMonthlyPayment()
         {
+            MonthPayment = Payment;
+            return MonthPayment;
         }
     }
 }

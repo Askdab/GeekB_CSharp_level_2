@@ -21,7 +21,8 @@ namespace Lesson1HW_Asteroids
 
         public override void Update()
         {
-            base.Update();
+            Pos.X = Pos.X + Dir.X;
+            if (Pos.X < 0) Pos.X = Game.Width + Game.Height;
         }
     }
 }
