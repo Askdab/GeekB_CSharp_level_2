@@ -21,7 +21,7 @@ namespace Lesson1HW_Asteroids
         {
             _objs = new BaseObject[30];
             _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
-            _asteroids = new Asteroid[10];
+            _asteroids = new Asteroid[30];
 
             var rnd = new Random();
 
@@ -98,7 +98,14 @@ namespace Lesson1HW_Asteroids
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs) { obj.Draw(); }
             foreach (Galaxy gal in _galaxy) { gal.Draw(); }
-            foreach (Asteroid aster in _asteroids) { aster.Draw(); }
+            foreach (Asteroid aster in _asteroids) 
+            {
+                aster.Draw();
+                if (aster.Collision(_bullet))
+                {
+                    aster.Draw();
+                }
+            }
             _bullet.Draw();
 
             Buffer.Render();
@@ -115,6 +122,7 @@ namespace Lesson1HW_Asteroids
                 if (aster.Collision(_bullet))
                 {
                     System.Media.SystemSounds.Hand.Play();
+                    _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
                 }
             }
             _bullet.Update();
