@@ -7,12 +7,18 @@ using System.Drawing;
 
 namespace Lesson1HW_Asteroids
 {
-    class Asteroid : BaseObject
+    class Asteroid : BaseObject, ICloneable
     {
-        public int Power { get; set; }
+        public int Power { get; set; } = 3;
         public Asteroid(Point pos, Point dir, Size size) : base(pos,dir,size)
         {
             Power = 1;
+        }
+
+        public object Clone()
+        {
+            Asteroid asteroid = new Asteroid(new Point(Pos.X, Pos.Y), new Point(Dir.X, Dir.Y), new Size(Size.Width, Size.Height)) { Power = Power };
+            return asteroid;
         }
 
         public override void Draw()
