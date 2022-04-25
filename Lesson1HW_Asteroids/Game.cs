@@ -16,11 +16,15 @@ namespace Lesson1HW_Asteroids
         public static Galaxy[] _galaxy;
         private static Bullet _bullet;
         private static Asteroid[] _asteroids;
+        private static Ship _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(10, 10));
+
+        private static Timer _timer = new Timer();
+        public static Random Rnd = new Random();
 
         public static void Load()
         {
             _objs = new BaseObject[30];
-            _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
+            //_bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
             _asteroids = new Asteroid[30];
 
             var rnd = new Random();
@@ -61,6 +65,7 @@ namespace Lesson1HW_Asteroids
             // Графическое устройство для вывода графики
             Graphics g;
 
+            form.KeyDown += Form_KeyDown;
             // Предоставляет доступ к главному буферу графического контекста для текущего приложения
             _context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics();
@@ -75,9 +80,11 @@ namespace Lesson1HW_Asteroids
 
             Load();
 
-            Timer timer = new Timer { Interval = 100 };
-            timer.Start();
-            timer.Tick += Timer_tick;
+            //Timer timer = new Timer { Interval = 100 };
+            _timer.Start();
+            _timer.Tick += Timer_tick;
+
+            Ship.MessageDie += Finish;
         }
 
         //Обработчик таймера
@@ -98,15 +105,10 @@ namespace Lesson1HW_Asteroids
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs) { obj.Draw(); }
             foreach (Galaxy gal in _galaxy) { gal.Draw(); }
-            foreach (Asteroid aster in _asteroids) 
-            {
-                aster.Draw();
-                if (aster.Collision(_bullet))
-                {
-                    aster.Draw();
-                }
-            }
-            _bullet.Draw();
+            foreach (Asteroid aster in _asteroids) { aster?.Draw(); }
+            _bullet?.Draw();
+            _ship?.Draw();
+            if (_ship != null) Buffer.Graphics.DrawString("Energy:" + _ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
 
             Buffer.Render();
         }
@@ -116,16 +118,39 @@ namespace Lesson1HW_Asteroids
         {
             foreach (BaseObject obj in _objs) { obj.Update(); }
             foreach (Galaxy gal in _galaxy) { gal.Update(); }
-            foreach (Asteroid aster in _asteroids) 
-            { 
-                aster.Update();
-                if (aster.Collision(_bullet))
+            for (var i = 0; i < _asteroids.Length; i++)
+            {
+                if (_asteroids[i] == null) continue;
+                _asteroids[i].Update();
+                if (_bullet != null && _bullet.Collision(_asteroids[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
-                    _bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(4, 1));
+                    _asteroids[i] = null;
+                    _bullet = null;
+                    continue;
                 }
+                if (!_ship.Collision(_asteroids[i])) continue;
+                var rnd = new Random();
+                _ship?.EnergyLow(rnd.Next(1, 10));
+                System.Media.SystemSounds.Asterisk.Play();
+                if (_ship.Energy <= 0) _ship?.Die();
             }
-            _bullet.Update();
+
+            _bullet?.Update();
+        }
+
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.Up) _ship.Up();
+            if (e.KeyCode == Keys.Down) _ship.Down();
+        }
+
+        public static void Finish()
+        {
+            _timer.Stop();
+            Buffer.Graphics.DrawString("Пизда", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
+            Buffer.Render();
         }
     }
 }
