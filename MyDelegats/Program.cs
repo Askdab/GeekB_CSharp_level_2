@@ -8,6 +8,23 @@ namespace MyDelegats
 {
     //delegate bool IsChar(char c);
     //public delegate int D(int a, int b);
+
+    #region Обобщенные делегаты - Action, Func и Predicate
+    //А как насчет ОБОБЩЕННЫХ ДЕЛЕГАТОВ БИЧ
+    //public delegate void GenereticDelegate<T> (T t);
+    //public delegate T1 GenereticDelegateT<T1> (T1 t1);
+
+    //Которые, кстати не нужны, потому что в библиотеке уже заложен
+    //обобщенный делегат Action, принимающий различные параментры и возвращающий void
+    //Action<int, string> da2;
+
+    //Также, есть обобщенный делегат Func, который возвращает значение
+    //Func<Входной параметр, входной параметр ..., выходной параметр (возвращаемый тип)>
+
+    //Есть еще ПРЕДИКАТ Predicate - обобщенный делегат, который возвращает всегда bool
+    //Predicate<T> b - можно его также прописать как Func<T, bool>
+    #endregion
+
     public delegate double Fun(double x);
 
 
@@ -42,6 +59,7 @@ namespace MyDelegats
 
         //static int Multy(int x, int y) => x * y;
         #endregion
+
 
         public static void Table(Fun f, double x, double b)
         {

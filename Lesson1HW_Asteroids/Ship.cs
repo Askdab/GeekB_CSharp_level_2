@@ -13,6 +13,8 @@ namespace Lesson1HW_Asteroids
         public int Energy => _energy;
         public static event Message MessageDie;
 
+        Image ship = Image.FromFile(@"img\ship.png");
+
         public void EnergyLow(int n)
         {
             _energy -= n;
@@ -25,7 +27,7 @@ namespace Lesson1HW_Asteroids
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.FillEllipse(Brushes.Wheat, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(ship, Pos.X, Pos.Y, Size.Width, Size.Height);
 
         }
 
